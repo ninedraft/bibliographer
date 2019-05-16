@@ -7,10 +7,6 @@ import (
 	"time"
 )
 
-type Bibliography struct {
-	db map[string]Source
-}
-
 type Source struct {
 	Indent       string
 	Lang         string
@@ -45,9 +41,9 @@ func GOST(source Source) (string, error) {
 	if !validLang {
 		sourceTypes = ruSources
 	}
-	const dateFormat = ""
+	const dateFormat = "2012.11.01"
 	switch source.Type {
-	case sourceTypes.Digital, sourceTypes.Digital, sourceTypes.Article:
+	case sourceTypes.Digital, sourceTypes.Blog, sourceTypes.Article:
 		fmt.Fprintf(buf, "%s %s [%s] // %s. – режим доступа: %s (дата обращения: %s)",
 			source.Title,
 			source.AuthorsStr(),
