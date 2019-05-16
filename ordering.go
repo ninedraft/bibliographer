@@ -28,7 +28,8 @@ func (ordering *SourceOrdering) TopIndex() int {
 	return ordering.topIndex
 }
 
-func (ordering *SourceOrdering) ScanText(text string) {
+func (ordering *SourceOrdering) ScanText(text string) map[string]int {
+	var locatedSources = make(map[string]int)
 	for source, i := range ordering.indexes {
 		var index = strings.Index(text, "["+source+"]")
 		if index < 0 {
@@ -37,8 +38,10 @@ func (ordering *SourceOrdering) ScanText(text string) {
 		if i == 0 {
 			ordering.topIndex++
 			ordering.indexes[source] = ordering.topIndex
+			locatedSources[source] = ordering.topIndex
 		}
 	}
+	return locatedSources
 }
 
 func (ordering *SourceOrdering) Index() map[string]int {
